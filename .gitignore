@@ -1,0 +1,19 @@
+# Variables de entorno y secretos
+.env
+
+# Frontend (React 19 + Vite + pnpm)
+node_modules/
+dist/
+
+# Backend (FastAPI + uv + Python)
+.venv/
+__pycache__/
+*.pyc
+
+# Base de datos local (Docker)
+postgres_data/
+
+# Editor y sistema operativo
+.vscode/
+.DS_Store
+Thumbs.db
