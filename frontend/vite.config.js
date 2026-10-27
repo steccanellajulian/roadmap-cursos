@@ -3,7 +3,8 @@
  * 
  * Responsabilidad:
  * Configura el soporte para React y define el proxy de desarrollo
- * para redirigir las peticiones con prefijo /api hacia el backend en http://localhost:8000.
+ * para redirigir las peticiones con prefijo /api hacia el backend (TRD TD-009).
+ * Permite usar BACKEND_URL en Docker Compose o por defecto http://localhost:8000 en local.
  */
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
@@ -14,7 +15,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: process.env.BACKEND_URL || 'http://localhost:8000',
         changeOrigin: true,
       },
     },
