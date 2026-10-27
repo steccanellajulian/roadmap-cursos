@@ -53,12 +53,12 @@ flowchart TD
 
 ### M0 — Scaffold e Infraestructura
 
-| # | Tarea | Hecho cuando… | Estimación |
-|---|-------|----------------|------------|
-| 0.1 | Estructura de carpetas Screaming Architecture (TRD §3.2) | Existen los directorios de dominio `backend/app/{compartido,identidad,catalogo,aportes,roadmap}` y `frontend/src/{app,compartido,estilos,features}` con archivos placeholder. | 30 min |
-| 0.2 | Configuración Docker Compose base | `docker compose up postgres mailpit` levanta PostgreSQL 18.6 y Mailpit aceptando conexiones en puertos 5432, 1025 y 8025. | 45 min |
-| 0.3 | Backend FastAPI mínimo con healthcheck y CORS | `docker compose up backend` responde `HTTP 200` con `{"status": "ok"}` al ejecutar `curl http://localhost:8000/health`. | 45 min |
-| 0.4 | Frontend Vite + React 19 con Shell de navegación | `docker compose up frontend` muestra la aplicación navegable en `http://localhost:5173` con Header, Menú sándwich mobile y proxy `/api` funcionando. | 1 h |
+| # | Tarea | Hecho cuando… | Estado | Rama / Commit |
+|---|-------|----------------|:------:|---------------|
+| 0.1 | Estructura de carpetas Screaming Architecture (TRD §3.2) | Existen los directorios de dominio `backend/app/{compartido,identidad,catalogo,aportes,roadmap}` y `frontend/src/{app,compartido,estilos,features}` con archivos placeholder. | [x] | `feat/T1-scaffold-estructura` (`fd968c8`) |
+| 0.2 | Configuración Docker Compose base | `docker compose up` levanta PostgreSQL 18.6, backend y frontend comunicados por red interna. | [x] | `feat/T4-docker-compose-dev` (`05f4e3c`) |
+| 0.3 | Backend FastAPI mínimo con healthcheck y CORS | `curl http://localhost:8000/health` responde `{"status": "ok"}` y `/api/v1/cursos` devuelve el catálogo. | [x] | `feat/T2-backend-minimo` (`9347085`) |
+| 0.4 | Frontend Vite + React 19 con Shell de navegación | La aplicación corre en `http://localhost:5173` con componentes semánticos, proxy `/api` y estados de UI. | [x] | `feat/T3-frontend-minimo` (`2394fb0`) |
 
 ---
 
