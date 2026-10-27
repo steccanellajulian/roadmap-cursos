@@ -3,9 +3,30 @@
 > **WebApp de gestión de comunidad de cursos:** catálogo comunitario de cursos gratuitos
 > (aportados por usuarios y validados por moderadores) + roadmaps personales de aprendizaje.
 >
-> **Estado del proyecto:** 📚 **Instancia A (Documentación)** — entregada y pendiente de aprobación docente.
+> **Estado del proyecto:** 🚀 **Instancia B (Desarrollo)** — Scaffold y desarrollo inicial en curso (Tickets pre-clase 27/10).
 
 **Stack tecnológico registrado:** React 19 + Vite + pnpm · FastAPI + uv · PostgreSQL 18.6 · Docker Compose (dev)
+
+---
+
+## Cómo levantar el proyecto
+
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/steccanellajulian/roadmap-cursos.git
+cd roadmap-cursos
+
+# 2. Configurar variables de entorno iniciales
+cp .env.example .env
+
+# 3. Levantar servicios con Docker Compose (disponible a partir de T4)
+docker compose up
+```
+
+- **Frontend (React 19 + Vite):** http://localhost:5173
+- **Backend (FastAPI):** http://localhost:8000/health
+- **Documentación OpenAPI:** http://localhost:8000/docs
+- **Bandeja de emails Mailpit:** http://localhost:8025
 
 ---
 
@@ -44,7 +65,7 @@ Adicionalmente, se incluye la [Checklist de autoregla de entrega](docs/CHECKLIST
 | Instancia | Alcance | Estado |
 |-----------|---------|:------:|
 | **Instancia A — Documentación y Git** | Especificación, 7 documentos técnicos completos, README y .gitignore | ✅ Completa |
-| **Instancia B — Desarrollo de MVP (P0)** | Construcción guiada por tareas M0 a M4 mediante Docker Compose | ⏳ En espera de aprobación |
+| **Instancia B — Desarrollo de MVP (P0)** | Construcción guiada por tareas M0 a M4 mediante Docker Compose | 🚀 En desarrollo (Tickets T1 a T5) |
 | **Instancia C — Clase presencial (27/10)** | Pruebas unitarias/integración, Docker multi-stage y gestión del cambio | ⏳ Planificada |
 
 ---
@@ -53,30 +74,6 @@ Adicionalmente, se incluye la [Checklist de autoregla de entrega](docs/CHECKLIST
 
 - **Flujo de Git:** **GitHub Flow** (documentado en [TRD §4.2](docs/TRD.md#42-flujo-de-git--github-flow)). La rama `main` se mantiene siempre estable y protegida. Cada documento o tarea se desarrolla en una rama corta aislada (`docs/...` en Instancia A, `feat/...` en Instancia B) y se integra mediante **Pull Request con merge commit** explícito para evidenciar el historial de ramas.
 - **Convención de commits:** [Conventional Commits](https://www.conventionalcommits.org/) en idioma español (`docs:`, `feat:`, `fix:`, `chore:`, `docker:`, `test:`), con mensajes descriptivos en imperativo.
-
----
-
-## Instrucciones previstas para la Instancia B (Desarrollo)
-
-Una vez aprobada la fase de documentación y habilitado el ticket T1, el proyecto levantará íntegramente en entorno local mediante Docker:
-
-```bash
-# 1. Clonar el repositorio
-git clone https://github.com/steccanellajulian/roadmap-cursos.git
-cd roadmap-cursos
-
-# 2. Configurar variables de entorno iniciales
-cp .env.example .env
-
-# 3. Levantar los 4 servicios con Docker Compose
-docker compose up -d
-
-# 4. Accesos a los servicios:
-# - Frontend SPA (React + Vite):    http://localhost:5173
-# - Backend API Docs (FastAPI):      http://localhost:8000/docs
-# - Bandeja de emails (Mailpit):     http://localhost:8025
-# - Base de datos PostgreSQL:        localhost:5432
-```
 
 ---
 
