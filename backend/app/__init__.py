@@ -1,1 +1,1 @@
-"""Módulo principal de la aplicación backend."""
+"""Modulo raiz del backend de Aprende-Gratis."""
