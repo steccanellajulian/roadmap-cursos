@@ -1,43 +1,16 @@
 /**
  * Componente: CatalogoCursos
  * Responsabilidad:
- * Consume el endpoint del backend (/api/v1/cursos) mediante fetch asíncrono y gestiona
- * los tres estados fundamentales de la interfaz: cargando, error y lista vacía.
- * Utiliza las etiquetas semánticas <section>, <ul> y <li>.
+ * Renderiza la interfaz de catálogo consumiendo el hook useCursos.
+ * Gestiona los estados visuales (cargando, error, lista vacía y grilla de cursos)
+ * cumpliendo con semántica HTML (<section>, <ul>, <li>) y accesibilidad (ARIA).
  */
 
-import { useState, useEffect } from 'react'
 import { TarjetaCurso } from './TarjetaCurso'
+import { useCursos } from './hooks/useCursos'
 
 export function CatalogoCursos() {
-  const [cursos, setCursos] = useState([])
-  const [cargando, setCargando] = useState(true)
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    async function cargarCursos() {
-      try {
-        setCargando(true)
-        setError(null)
-
-        // Hacemos la petición a través del proxy de Vite (/api -> backend:8000)
-        const respuesta = await fetch('/api/v1/cursos')
-
-        if (!respuesta.ok) {
-          throw new Error(`Error en la respuesta del servidor (código ${respuesta.status})`)
-        }
-
-        const datos = await respuesta.json()
-        setCursos(datos.items || [])
-      } catch (err) {
-        setError(err.message || 'Error de conexión con el backend')
-      } finally {
-        setCargando(false)
-      }
-    }
-
-    cargarCursos()
-  }, [])
+  const { cursos, cargando, error } = useCursos()
 
   return (
     <section className="seccion-catalogo" id="catalogo" aria-labelledby="titulo-catalogo">
