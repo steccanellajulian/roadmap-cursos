@@ -1,1 +1,1 @@
-"""Módulo de identidad: autenticación JWT, registro y control de roles."""
+"""Modulo de identidad: autenticacion, usuarios y roles."""

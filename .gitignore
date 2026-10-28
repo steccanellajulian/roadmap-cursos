@@ -13,7 +13,10 @@ __pycache__/
 # Base de datos local (Docker)
 postgres_data/
 
-# Editor y sistema operativo
-.vscode/
-.DS_Store
-Thumbs.db
+# Tests y reportes locales
+.pytest_cache/
+.coverage
+htmlcov/
+scratch/
+*.pdf
+

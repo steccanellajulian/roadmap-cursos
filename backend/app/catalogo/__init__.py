@@ -1,1 +1,1 @@
-"""Módulo de catálogo: listado de cursos comunitarios y categorías."""
+"""Modulo de catalogo: cursos comunitarios y categorias."""
