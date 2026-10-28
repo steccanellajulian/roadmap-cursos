@@ -93,7 +93,7 @@ def dictaminar_aporte(
     # 4. Aplicar dictamen según aprobación o rechazo
     resultado = dict(aporte)
     resultado["revisado_por_id"] = validador_id
-    resultado["revisado_en"] = fecha_revision.isoformat() if hasattr(fecha_revision, "isoformat") else str(fecha_revision)
+    resultado["revisado_en"] = fecha_revision
 
     if aprobado:
         resultado["estado"] = EstadoCurso.PUBLICADO.value

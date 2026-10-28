@@ -1,13 +1,12 @@
-"""
-Punto de entrada de la aplicación FastAPI.
+"""Punto de entrada de la aplicación FastAPI.
 
-Responsabilidad:
-Inicializa la API, configura CORS para permitir peticiones desde el frontend,
-y expone los endpoints mínimos de salud (/health) y catálogo (/api/v1/cursos).
+Inicializa la API, configura CORS y monta los routers de Catálogo y Aportes.
 """
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+from app.aportes.router import router as aportes_router
+from app.catalogo.router import router as catalogo_router
 
 app = FastAPI(
     title="Aprende-Gratis API",
@@ -24,56 +23,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Registrar routers de módulos
+app.include_router(catalogo_router)
+app.include_router(aportes_router)
+
 
 @app.get("/health", tags=["Salud"])
 def health():
     """Verifica que el servicio esté levantado y respondiendo."""
     return {"status": "ok"}
-
-
-@app.get("/api/v1/cursos", tags=["Catálogo"])
-@app.get("/cursos", tags=["Catálogo"], include_in_schema=False)
-def obtener_cursos():
-    """
-    Devuelve la lista inicial de cursos del catálogo comunitario.
-    Estructura paginada según BackendSchema.md §3.3.
-    """
-    cursos_ejemplo = [
-        {
-            "id": 1,
-            "titulo": "Python para Principiantes",
-            "tema": "Fundamentos del lenguaje y programación estructurada",
-            "version": "2026",
-            "anio_edicion": 2026,
-            "docentes": "Ana Pérez",
-            "categoria": {"id": 1, "nombre": "Programación"},
-            "tiene_cuestionarios": True,
-            "requiere_examen": False,
-            "extiende_certificado": True,
-            "aval_organizacion": "Comunidad Abierta de Software",
-            "tomo_el_curso": True,
-            "url": "https://www.youtube.com/watch?v=ejemplo1",
-        },
-        {
-            "id": 2,
-            "titulo": "Desarrollo Frontend Moderno",
-            "tema": "HTML semántico, CSS responsivo y componentes con React",
-            "version": "v19",
-            "anio_edicion": 2026,
-            "docentes": "Carlos Gómez",
-            "categoria": {"id": 2, "nombre": "Desarrollo Web"},
-            "tiene_cuestionarios": True,
-            "requiere_examen": True,
-            "extiende_certificado": True,
-            "aval_organizacion": "UTN - Facultad Regional La Plata",
-            "tomo_el_curso": True,
-            "url": "https://www.youtube.com/watch?v=ejemplo2",
-        },
-    ]
-
-    return {
-        "items": cursos_ejemplo,
-        "total": len(cursos_ejemplo),
-        "page": 1,
-        "page_size": 20,
-    }

@@ -114,8 +114,9 @@ def test_dictaminar_aporte_aprobar_curso_en_revision_exito(
     # Assert: el curso pasa a publicado, audita el validador y no tiene motivo de rechazo
     assert curso_dictaminado["estado"] == EstadoCurso.PUBLICADO.value
     assert curso_dictaminado["revisado_por_id"] == usuario_validador["id"]
-    assert curso_dictaminado["revisado_en"] == fecha_fijada.isoformat()
+    assert curso_dictaminado["revisado_en"] == fecha_fijada
     assert curso_dictaminado["motivo_rechazo"] is None
+
 
 
 def test_dictaminar_aporte_rechazar_con_motivo_exito(
