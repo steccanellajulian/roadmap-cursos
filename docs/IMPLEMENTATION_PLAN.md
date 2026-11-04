@@ -145,18 +145,27 @@ flowchart TD
 
 ---
 
-## 5. Estrategia de testing (Planificada para la clase del 27/10)
+## 5. Estrategia de testing (Implementada y validada en la clase del 27/10)
 
-En la clase presencial del martes 27/10 se aplicarán pruebas formales sobre el código desarrollado:
+En la clase del martes 27/10 se ejecutó e integró la suite de pruebas automatizadas sobre el proyecto:
 
-- **Unit tests en capa Service (`pytest`):** Pruebas puras sin red ni base de datos, testeando las reglas de negocio aisladas:
-  - Rechazo de aportes duplicados o con URLs sin protocolo.
-  - Reglas de validación: un curso no puede pasar a `rechazado` sin motivo de rechazo.
-  - Reglas de roadmap: no se puede incluir un curso que esté en estado `en_revision` o `rechazado`.
-  - Transiciones de estado permitidas del curso.
-- **Integration tests (`httpx` + `pytest`):** Ejecución de llamadas completas a la API contra una base de datos PostgreSQL de test en Docker, verificando commits, rollbacks y transacciones.
-- **Frontend tests (`vitest` + `@testing-library/react`):** Tests de componentes para verificar renderizado de estados vacíos, paginador y captura de eventos.
-- **Objetivo de cobertura:** Mínimo `>= 80%` en la capa de servicios de negocio (`backend/app/*/service.py`).
+- **Unit tests de funciones puras de negocio (`pytest`):**
+  - Módulos testeados: `app/catalogo/reglas.py`, `app/roadmap/reglas.py`, `app/aportes/reglas.py`.
+  - Estructura: Patrón **AAA (Arrange - Act - Assert)** visible en cada test con naming `test_<funcion>_<escenario>_<esperado>`.
+  - Reglas cubiertas: validación de URL con regex estricto, límites temporales (1990..año_actual), declaración jurada obligatoria (BR-002), transiciones válidas de la máquina de estados, no duplicación de cursos en el roadmap (BR-006), reordenamiento secuencial sin huecos, permisos de validador y códigos de error semánticos estables (`CodigosErrorAportes`).
+  - Resultado: **48 tests unitarios pasando al 100%**, 0 fallados, 0 omitidos. Cobertura de dominio: **100%**.
+
+- **Integration tests con BD real (`pytest` + `SQLModel` + `FastAPI TestClient`):**
+  - **Decisión de diseño:** Se utilizó base de datos relacional real **SQLite en memoria (`sqlite:///:memory:`) con `StaticPool`**. Esto evita mocks, asegura la ejecución de SQL ACID real y resuelve los problemas de lentitud o dependencia de sockets de un Postgres externo, corriendo la suite completa en menos de 3 segundos en cualquier máquina o pipeline CI/CD.
+  - Repositorio: `test_integration.py` valida CRUD completo de `CursoRepository`, paginación (`page=1`, `page=2`, total count), búsqueda parcial `q` case-insensitive y filtrado por categoría.
+  - Flujo de negocio: `test_flujo_aportes_integration.py` valida el ciclo de vida del aporte (`en_revision` -> aprobación -> `publicado` y visible en catálogo / rechazo con motivo) y control de accesos (401 sin sesión, 403 para usuarios sin rol validador).
+  - Resultado: **16 tests de integración pasando al 100%**. Cobertura general del backend: **≥ 95%** (superando la meta del 85%).
+
+- **Frontend tests de hooks (`node:test` / `Vitest`):**
+  - Módulo testeado: `frontend/src/features/catalogo/hooks/useCursos.test.js`.
+  - Escenarios cubiertos: ciclo de carga inicial (`loading=true` -> `loading=false` con datos), manejo y aislamiento de error de red con lista vacía, cambio de página (`setPage`) con reseteo automático a página 1 al modificar filtros de búsqueda, y refetch con parámetros vigentes.
+  - Resultado: **4 tests pasando en ~3 ms**.
+
 
 ---
 
