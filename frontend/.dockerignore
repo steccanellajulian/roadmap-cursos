@@ -1,2 +1,32 @@
-node_modules
-dist
+# Control de versiones
+.git
+.gitignore
+
+# Dependencias y compilados locales
+node_modules/
+dist/
+dist-ssr/
+
+# Tests y coberturas
+coverage/
+*.test.js
+*.test.jsx
+*.spec.js
+*.spec.jsx
+
+# Logs y cachés
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Secretos y variables locales
+.env
+.env.*
+!.env.example
+
+# Editor y SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
