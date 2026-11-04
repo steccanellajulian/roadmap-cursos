@@ -1,1 +1,1 @@
-"""Módulo compartido: configuración, base de datos y utilidades transversales."""
+"""Modulo compartido: configuracion, base de datos y utilidades."""

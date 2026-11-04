@@ -1,3 +1,26 @@
-.venv
-__pycache__
-*.pyc
+# Control de versiones
+.git
+.gitignore
+
+# Entornos virtuales y caché de Python
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Tests, coverage y reportes
+tests/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Secretos y variables locales
+.env
+.env.*
+!.env.example
+
+# IDEs y SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
